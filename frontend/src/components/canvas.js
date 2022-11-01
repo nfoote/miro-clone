@@ -1,15 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
 import Flex from "./flex";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:4001";
+import { Pointer } from "./pointer";
+
+const style = {
+	position: "relative",
+}
 
 const Canvas = () => {
   const canvasRef = useRef(null);
   const [context, setContext] = useState(null);
 	const [posY, setPosY] = useState(null);
 	const [posX, setPosX] = useState(null);
-	let clients = {};
-  let pointers = {};
+	//const [pointers, setPointers] = useState([]);
 
 	function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
@@ -19,40 +22,26 @@ const Canvas = () => {
     };
   }
 
-  useEffect(() => {
-		const socket = socketIOClient(ENDPOINT);
-
-    if (canvasRef.current) {
-      const renderCtx = canvasRef.current.getContext("2d");
-
-      if (renderCtx) {
-        setContext(renderCtx);
-      }
-    }
-
-    if (context) {
-		canvasRef.current.addEventListener('mousemove', function(evt) {
-				const { x, y } = getMousePos(canvasRef.current, evt);
-				setPosY(y);
-				setPosX(x);
-
-				socket.emit("mousemove", {
-          x: x,
-          y: y
-          //drawing: drawing
-        });
-
-
-			}, false);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [context]);
-
-
+	useEffect(() => {
+		function handleMouseMove(event) {
+			const { x, y } = getMousePos(canvasRef.current, event);
+			setPosY(y);
+			setPosX(x);
+		}
+	
+		canvasRef.current.addEventListener('mousemove', handleMouseMove)
+		return () => {
+			document.removeEventListener('mousemove', handleMouseMove)
+		}
+	}, [])
 
   return (
 		<>
 			<p>Canvas x{posX} Canvas y{posY}</p>
+			{/* <p>{JSON.stringify(pointers)}</p> */}
+			{/* <div style={style}>
+				{pointers.map(data => <Pointer {...data}  />)}
+			</div> */}
       <canvas
         id="canvas"
         ref={canvasRef}
@@ -64,7 +53,6 @@ const Canvas = () => {
         }}
       />
 		</>
-
   );
 };
 
