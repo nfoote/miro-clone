@@ -46,21 +46,36 @@ const removeClient = socket => {
   delete clients[socket.id]; // todo delete?
 };
 
-io.sockets.on("connection", socket => {
+io.on("connection", (socket) => {
+  console.log("Connection called")
+  socket.join("room");
+
   let id = socket.id;
-
-  addClient(socket);
-
   socket.on("mousemove", data => {
     console.log(data);
     data.id = id;
-    socket.broadcast.emit("moving", data);
-  });
+    //socket.broadcast.emit("moving", data);
 
-  socket.on("disconnect", () => {
-    removeClient(socket);
-    socket.broadcast.emit("clientdisconnect", id);
+    io.to("room").emit("moving", data);
   });
+  
 });
+
+// io.sockets.on("connection", socket => {
+//   let id = socket.id;
+
+//   addClient(socket);
+
+//   socket.on("mousemove", data => {
+//     console.log(data);
+//     data.id = id;
+//     socket.broadcast.emit("moving", data);
+//   });
+
+//   socket.on("disconnect", () => {
+//     removeClient(socket);
+//     socket.broadcast.emit("clientdisconnect", id);
+//   });
+// });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

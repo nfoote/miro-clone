@@ -8,11 +8,9 @@ const baseStyle = {
 }
 
 const Pointer = ( data ) => {
-   // console.log("data in pointer", data)
-
     const positionStyle = {
-        left: `${data.x}px`,
-        top: `${data.y}px`
+			left: `${data.x}px`,
+			top: `${data.y}px`
     }
 
     return <div style={{...baseStyle, ...positionStyle}}></div>;
