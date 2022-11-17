@@ -16,5 +16,4 @@ const Pointer = ( data ) => {
     return <div style={{...baseStyle, ...positionStyle}}></div>;
 };
 
-
 export { Pointer };

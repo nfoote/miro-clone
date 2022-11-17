@@ -4,9 +4,8 @@ import { initSockets } from "../sockets/index";
 
 const SocketProvider = (props) => {
   const [value, setValue] = useState({
-    queueLength: 0,
-    positionInLine: 0,
-    cursorPosition: null,
+    users: {},
+    cursorPositions: null,
   });
 
   useEffect(() => initSockets({ setValue }), []);

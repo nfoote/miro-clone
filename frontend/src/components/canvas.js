@@ -11,11 +11,12 @@ const style = {
 const Canvas = () => {
   const canvasRef = useRef(null);
   const [context, setContext] = useState(null);
-	const [posY, setPosY] = useState(null);
-	const [posX, setPosX] = useState(null);
+  const [posY, setPosY] = useState(null);
+  const [posX, setPosX] = useState(null);
 
 	function getMousePos(canvas, evt) {
     const rect = canvas.getBoundingClientRect();
+
     return {
       x: evt.clientX - rect.left,
       y: evt.clientY - rect.top
@@ -28,27 +29,33 @@ const Canvas = () => {
 		setPosX(x);
 
 		mouseMove(x, y);
-	}
+	};
 
-  const { positionInLine, queueLength, cursorPosition} = useContext(SocketContext);
-
+  const { users } = useContext(SocketContext);
+  // console.log(cursorPositions, "context")
 	useEffect(() => {
 		canvasRef.current.addEventListener('mousemove', handleMouseMove)
 		return () => {
 			document.removeEventListener('mousemove', handleMouseMove)
 		}
 	}, []);
-
+	console.log(users);
   return (
 		<>
 			<p>Canvas x{posX} Canvas y{posY}</p>
 			{/* <p>{JSON.stringify(pointers)}</p> */}
 			{/* <div style={style}>
-				{pointers.map(data => <Pointer {...data}  />)}
+				{users.map(data => <Pointer {...data}  />)}
+			</div> */}
+			{/* <div style={style}>
+				<Pointer {...cursorPosition} />
 			</div> */}
 			<div style={style}>
-				<Pointer {...cursorPosition} />
+				{Object.keys(users).map((keyName, i) => (
+					<Pointer {...users[keyName]} />
+				))}
 			</div>
+
       <canvas
         id="canvas"
         ref={canvasRef}
