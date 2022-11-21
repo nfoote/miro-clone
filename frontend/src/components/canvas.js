@@ -4,13 +4,13 @@ import { Pointer } from "./pointer";
 import SocketContext from '../components/socket_context/context'
 import { mouseMove } from '../components/sockets/emit'
 
-const style = {
+const pointerStyle = {
 	position: "relative",
 }
 
 const Canvas = () => {
   const canvasRef = useRef(null);
-  const [context, setContext] = useState(null);
+  const { users } = useContext(SocketContext);
   const [posY, setPosY] = useState(null);
   const [posX, setPosX] = useState(null);
 
@@ -30,42 +30,35 @@ const Canvas = () => {
 
 		mouseMove(x, y);
 	};
-
-  const { users } = useContext(SocketContext);
-  // console.log(cursorPositions, "context")
+  
 	useEffect(() => {
 		canvasRef.current.addEventListener('mousemove', handleMouseMove)
 		return () => {
 			document.removeEventListener('mousemove', handleMouseMove)
 		}
 	}, []);
-	console.log(users);
+
   return (
 		<>
 			<p>Canvas x{posX} Canvas y{posY}</p>
-			{/* <p>{JSON.stringify(pointers)}</p> */}
-			{/* <div style={style}>
-				{users.map(data => <Pointer {...data}  />)}
-			</div> */}
-			{/* <div style={style}>
-				<Pointer {...cursorPosition} />
-			</div> */}
-			<div style={style}>
+			<div style={pointerStyle}>
 				{Object.keys(users).map((keyName, i) => (
 					<Pointer {...users[keyName]} />
 				))}
 			</div>
-
-      <canvas
-        id="canvas"
-        ref={canvasRef}
-        width={500}
-        height={500}
-        style={{
-          border: "2px solid #000",
-          marginTop: 10,
-        }}
-      />
+        
+        <Flex container justifyContent="center">
+          <canvas
+            id="canvas"
+            ref={canvasRef}
+            width={500}
+            height={500}
+            style={{
+              border: "2px solid #000",
+              marginTop: 10,
+            }}
+          />
+        </Flex>
 		</>
   );
 };

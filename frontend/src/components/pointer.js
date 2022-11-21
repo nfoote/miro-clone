@@ -7,10 +7,12 @@ const baseStyle = {
     background: "red"
 }
 
-const Pointer = ( data ) => {
+// TODO : - Unique cursor colour per client
+
+const Pointer = data => {
     const positionStyle = {
-			left: `${data.x}px`,
-			top: `${data.y}px`
+        left: `${data.x}px`,
+        top: `${data.y}px`
     }
 
     return <div style={{...baseStyle, ...positionStyle}}></div>;

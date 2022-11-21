@@ -1,5 +1,7 @@
 import React from "react";
 
+
+// TODO: use this to style the canvas to center
 const Flex = props => {
   const {
     className, container, justifyContent, flexGrow,
