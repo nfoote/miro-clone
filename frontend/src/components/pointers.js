@@ -8,7 +8,6 @@ const baseStyle = {
 }
 
 // TODO : - Unique cursor colour per client
-
 const Pointer = data => {
     const positionStyle = {
         left: `${data.x}px`,
@@ -18,4 +17,19 @@ const Pointer = data => {
     return <div style={{...baseStyle, ...positionStyle}}></div>;
 };
 
-export { Pointer };
+const Pointers = props => {
+	const { users } = props
+    return (
+			<div
+				style={{
+					position: "relative"
+				}}
+			>
+				{Object.keys(users).map((keyName, i) => (
+						<Pointer {...users[keyName]} />
+				))}
+			</div>
+    )
+};
+
+export { Pointers };

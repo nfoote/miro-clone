@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import Flex from "./flex";
-import { Pointer } from "./pointer";
+import { Pointers } from "./pointers";
 import SocketContext from '../components/socket_context/context'
 import { mouseMove } from '../components/sockets/emit'
 
@@ -37,17 +37,15 @@ const Canvas = () => {
 			document.removeEventListener('mousemove', handleMouseMove)
 		}
 	}, []);
-
+  
   return (
 		<>
-			<p>Canvas x{posX} Canvas y{posY}</p>
-			<div style={pointerStyle}>
-				{Object.keys(users).map((keyName, i) => (
-					<Pointer {...users[keyName]} />
-				))}
-			</div>
-        
-        <Flex container justifyContent="center">
+			<p>Canvas x{posX} Canvas y{posY}</p>        
+        <Flex 
+        container 
+        justifyContent="center"
+        >
+         <Pointers users={users} />
           <canvas
             id="canvas"
             ref={canvasRef}
@@ -55,7 +53,6 @@ const Canvas = () => {
             height={500}
             style={{
               border: "2px solid #000",
-              marginTop: 10,
             }}
           />
         </Flex>
