@@ -4,13 +4,9 @@ import { Pointers } from "./pointers";
 import SocketContext from '../components/socket_context/context'
 import { mouseMove } from '../components/sockets/emit'
 
-const pointerStyle = {
-	position: "relative",
-}
-
 const Canvas = () => {
   const canvasRef = useRef(null);
-  const { users } = useContext(SocketContext);
+  const { users, color } = useContext(SocketContext);
   const [posY, setPosY] = useState(null);
   const [posX, setPosX] = useState(null);
 
@@ -28,7 +24,7 @@ const Canvas = () => {
 		setPosY(y);
 		setPosX(x);
 
-		mouseMove(x, y);
+		mouseMove(x, y, color);
 	};
   
 	useEffect(() => {
@@ -42,11 +38,11 @@ const Canvas = () => {
 		<>
 			<p>Canvas x{posX} Canvas y{posY}</p>        
         <Flex 
-        container 
-        justifyContent="center"
+          container 
+          justifyContent="center"
         >
          <Pointers users={users} />
-          <canvas
+         <canvas
             id="canvas"
             ref={canvasRef}
             width={500}

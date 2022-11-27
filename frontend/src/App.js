@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Canvas from "./components/canvas";
 import SocketProvider from "./components/socket_context";
 
