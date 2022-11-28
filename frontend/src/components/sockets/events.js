@@ -7,8 +7,7 @@ export const socketEvents = ({ setValue }) => {
     }});
   });
 
-  socket.on('clientdisconnect', (data) => {
-    const { id } = data;
+  socket.on('clientdisconnect', id => {
     const removeUser = state => {
       const currentUsers = {
           ...state.users,

@@ -36,7 +36,9 @@ const Canvas = () => {
   
   return (
 		<>
-			<p>Canvas x{posX} Canvas y{posY}</p>        
+			<p>Canvas x{posX} Canvas y{posY}</p>
+      <p>Users connected {Object.keys(users).length}</p>        
+        
         <Flex 
           container 
           justifyContent="center"

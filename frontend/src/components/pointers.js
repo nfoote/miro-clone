@@ -2,18 +2,19 @@ import React from 'react';
 
 const baseStyle = {
     position: "absolute",
-    width: "15px",
-    height: "22px"
+		borderWidth: "0 5px 5px 0",
+		padding: "5px",
+		transform: "rotate(180deg)",
 }
 
 const Pointer = data => {
     const positionStyle = {
 			left: `${data.x}px`,
 			top: `${data.y}px`,
-			background: `#${data.color}`
+			border: `solid ${data.color}`, 
     }
 
-    return <div style={{...baseStyle, ...positionStyle}}></div>;
+    return <div style={{...positionStyle, ...baseStyle}}></div>;
 };
 
 const Pointers = props => {
