@@ -11,7 +11,8 @@ export const socketEvents = ({ setValue }) => {
     const removeUser = state => {
       const currentUsers = {
           ...state.users,
-      }
+      };
+      
       delete currentUsers[id];
       return currentUsers;
     }
